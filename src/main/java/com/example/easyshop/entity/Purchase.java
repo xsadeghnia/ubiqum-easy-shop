@@ -20,7 +20,8 @@ public class Purchase {
     @ManyToMany
     private List<Product> products;
 
-   
+    @OneToMany(mappedBy = "purchase")
+    private List<Receipt> receipts;
 
     public Purchase() {
     }
@@ -49,5 +50,11 @@ public class Purchase {
         this.products = products;
     }
 
-    
+    public List<Receipt> getReceipts() {
+        return receipts;
+    }
+
+    public void setReceipts(List<Receipt> receipts) {
+        this.receipts = receipts;
+    }
 }

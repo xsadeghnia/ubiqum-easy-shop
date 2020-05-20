@@ -29,6 +29,9 @@ public class Product {
     @JoinColumn(name = "categoryId")
     private Category category;
 
+    @OneToMany(mappedBy = "product")
+    private List<ProductInstance> productInstances;
+
     public Product() {
     }
 
@@ -94,5 +97,13 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public List<ProductInstance> getProductInstances() {
+        return productInstances;
+    }
+
+    public void setProductInstances(List<ProductInstance> productInstances) {
+        this.productInstances = productInstances;
     }
 }

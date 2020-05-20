@@ -14,14 +14,14 @@ public class Receipt {
     private double payment;
     private String type;
 
-
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "purchaseId")
+    private Purchase purchase;
 
     public Receipt() {
     }
 
-    public long getId() {
-        return id;
-    }
+    public long getId() { return id; }
 
     public void setId(long id) {
         this.id = id;
@@ -43,5 +43,11 @@ public class Receipt {
         this.type = type;
     }
 
-   
+    public Purchase getPurchase() {
+        return purchase;
+    }
+
+    public void setPurchase(Purchase purchase) {
+        this.purchase = purchase;
+    }
 }
