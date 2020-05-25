@@ -20,6 +20,9 @@ public class User {
     @ManyToMany
     private List<Role> roles;
 
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
+
     public User() {
     }
 
@@ -63,12 +66,20 @@ public class User {
         this.password = password;
     }
 
-    public List<Role> getRols() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRols(List<Role> rols) {
-        this.roles = rols;
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public List<Token> getTokens() {
+        return tokens;
+    }
+
+    public void setTokens(List<Token> tokens) {
+        this.tokens = tokens;
     }
 
     @Override
