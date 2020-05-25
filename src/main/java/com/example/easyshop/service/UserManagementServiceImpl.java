@@ -38,7 +38,7 @@ public class UserManagementServiceImpl implements UserManagementService {
         if (userRepository.findByUsername(signUpData.getUsername()).isPresent()){
            throw new DuplicateUserException();
         }
-        if(passwordValidator.validate(signUpData.getPassword())){
+        if (!passwordValidator.validate(signUpData.getPassword())){
             throw new WeakPasswordException();
         }
         try {
@@ -89,7 +89,7 @@ public class UserManagementServiceImpl implements UserManagementService {
 
     @Override
     public Token validateToken(LoginToken loginToken) throws InvalidTokenException, TechnicalException {
-        Optional<Token> token = tokenRepository.findByValue();
+        Optional<Token> token = tokenRepository.findByValue(loginToken.getValue());
         if(!token.isPresent()) {
             throw new InvalidTokenException();
         }
