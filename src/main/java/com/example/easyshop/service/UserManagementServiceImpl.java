@@ -61,6 +61,9 @@ public class UserManagementServiceImpl implements UserManagementService {
 
     @Override
     public LoginToken login(LoginData loginData) throws LoginFailedException, TechnicalException {
+        if(loginData == null){
+            throw new IllegalArgumentException("Login data is null");
+        }
         Optional<User> user = userRepository.findByUsername(loginData.getUsername());
         if (!user.isPresent()){
             throw new LoginFailedException();

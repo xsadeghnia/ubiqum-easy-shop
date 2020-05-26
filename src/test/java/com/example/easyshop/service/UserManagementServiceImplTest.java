@@ -197,4 +197,15 @@ class UserManagementServiceImplTest {
         Assertions.assertEquals(1, tokens.size());
         Assertions.assertEquals( tokens.get(0).getValue(), loginToken.getValue());
     }
+
+    @Test
+    void testLoginWithNull() {
+        try {
+            userManagementService.login(null);
+            Assertions.fail();
+        } catch (IllegalArgumentException e){
+        } catch(Exception e){
+            Assertions.fail();
+        }
+    }
 }
