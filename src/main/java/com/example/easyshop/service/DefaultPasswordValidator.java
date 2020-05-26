@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 public class DefaultPasswordValidator implements PasswordValidator {
     @Override
     public boolean validate(String password) {
-        // TODO
-        return true;
+        if (password == null){
+            throw new IllegalArgumentException("Password is null");
+        }
+        return password.length() >= 6;
     }
 }

@@ -35,6 +35,12 @@ public class UserManagementServiceImpl implements UserManagementService {
 
     @Override
     public void signUp(SignUpData signUpData) throws DuplicateUserException, TechnicalException, WeakPasswordException {
+        if (signUpData == null){
+            throw new IllegalArgumentException("Sign up data is null");
+        }
+        if(signUpData.getUsername() == null || signUpData.getUsername().length() == 0){
+            throw new IllegalArgumentException("Username is null or empty");
+        }
         if (userRepository.findByUsername(signUpData.getUsername()).isPresent()){
            throw new DuplicateUserException();
         }
