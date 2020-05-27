@@ -17,6 +17,10 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<Product> products;
 
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private Category parent;
+
     public Category() {
     }
 
@@ -42,5 +46,13 @@ public class Category {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    public Category getParent() {
+        return parent;
+    }
+
+    public void setParent(Category parent) {
+        this.parent = parent;
     }
 }
