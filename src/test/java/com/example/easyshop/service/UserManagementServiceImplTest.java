@@ -208,4 +208,37 @@ class UserManagementServiceImplTest {
             Assertions.fail();
         }
     }
+
+    @Test
+    void testLoginWithWrongUsername() throws DuplicateUserException, WeakPasswordException, TechnicalException {
+
+        SignUpData signUpData = new SignUpData();
+        signUpData.setFirstname("Alex");
+        signUpData.setLastname("Bob");
+        signUpData.setUsername("alex");
+        signUpData.setPassword("alex12345");
+
+        userManagementService.signUp(signUpData);
+
+        List<User> users = userRepository.findAll();
+
+        Assertions.assertEquals(1, users.size());
+        Assertions.assertEquals("Alex", users.get(0).getFirstname());
+        Assertions.assertEquals("Bob", users.get(0).getLastname());
+        Assertions.assertEquals("alex", users.get(0).getUsername());
+        Assertions.assertEquals("alex12345", users.get(0).getPassword());
+
+
+        LoginData loginData = new LoginData();
+        loginData.setUsername("foo");
+        loginData.setPassword("alex12345");
+
+        try {
+            userManagementService.login(loginData);
+            Assertions.fail();
+        } catch (LoginFailedException e){
+        }catch(Exception e){
+            Assertions.fail();
+        }
+    }
 }
