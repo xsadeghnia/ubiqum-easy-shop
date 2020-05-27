@@ -86,7 +86,10 @@ public class UserManagementServiceImpl implements UserManagementService {
     }
 
     @Override
-    public void Logout(LoginToken loginToken) throws InvalidTokenException, TechnicalException {
+    public void logout(LoginToken loginToken) throws InvalidTokenException, TechnicalException {
+        if(loginToken == null){
+            throw new IllegalArgumentException("Token data is null");
+        }
         Token token = validateToken(loginToken);
         try {
             tokenRepository.delete(token);
@@ -98,6 +101,9 @@ public class UserManagementServiceImpl implements UserManagementService {
 
     @Override
     public Token validateToken(LoginToken loginToken) throws InvalidTokenException, TechnicalException {
+        if (loginToken == null){
+            throw new IllegalArgumentException("Token data is null");
+        }
         Optional<Token> token = tokenRepository.findByValue(loginToken.getValue());
         if(!token.isPresent()) {
             throw new InvalidTokenException();

@@ -10,7 +10,7 @@ public interface UserManagementService {
 
     LoginToken login(LoginData loginData) throws LoginFailedException, TechnicalException;
 
-    void Logout(LoginToken loginToken) throws InvalidTokenException, TechnicalException;
+    void logout(LoginToken loginToken) throws InvalidTokenException, TechnicalException;
 
     Token validateToken(LoginToken loginToken) throws InvalidTokenException, TechnicalException;
 
