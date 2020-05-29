@@ -15,20 +15,20 @@ public interface WarehouseService {
     void updateCategory(LoginToken loginToken,CategoryData categoryData)
             throws ValidationFailedException, InvalidTokenException, AccessDeniedException, TechnicalException, CategoryNotFoundException;
 
-    List<CategoryData> getCategory(LoginToken loginToken, FilterData filterData, PagingData pagingData)
+    List<CategoryData> getCategory(LoginToken loginToken, CategoryFilterData categoryFilterData, PagingData pagingData)
             throws InvalidTokenException, AccessDeniedException, TechnicalException;
 
 
     // Product CRUD
 
     void addProduct(LoginToken loginToken,ProductData productData)
-            throws ValidationFailedException, InvalidTokenException, AccessDeniedException, TechnicalException;
+            throws ValidationFailedException, InvalidTokenException, AccessDeniedException, TechnicalException, CategoryNotFoundException;
 
     void deleteProduct(LoginToken loginToken, ProductData productData)
-            throws  InvalidTokenException, AccessDeniedException, TechnicalException;
+            throws InvalidTokenException, AccessDeniedException, TechnicalException, ProductNotFoundException;
 
     void updateProduct(LoginToken loginToken,ProductData productData)
-            throws  ValidationFailedException, InvalidTokenException, AccessDeniedException, TechnicalException;
+            throws ValidationFailedException, InvalidTokenException, AccessDeniedException, TechnicalException, ProductNotFoundException, CategoryNotFoundException;
 
     List<ProductData> getProducts(LoginToken loginToken, FilterData filterData, PagingData pagingData)
             throws InvalidTokenException, AccessDeniedException, TechnicalException;
@@ -37,13 +37,13 @@ public interface WarehouseService {
     // ProductInstance CRUD
 
     void addProductInstance(LoginToken loginToken,ProductInstanceData productInstanceData)
-            throws ValidationFailedException, InvalidTokenException, AccessDeniedException, TechnicalException;
+            throws ValidationFailedException, InvalidTokenException, AccessDeniedException, TechnicalException, ProductNotFoundException;
 
     void deleteProductInstance(LoginToken loginToken, ProductInstanceData productInstanceData)
-            throws  InvalidTokenException, AccessDeniedException, TechnicalException;
+            throws InvalidTokenException, AccessDeniedException, TechnicalException, ProductInstanceNotFoundException;
 
     void updateProductInstance(LoginToken loginToken,ProductInstanceData productInstanceData)
-            throws  ValidationFailedException, InvalidTokenException, AccessDeniedException, TechnicalException;
+            throws ValidationFailedException, InvalidTokenException, AccessDeniedException, TechnicalException, ProductInstanceNotFoundException, ProductNotFoundException;
 
     List<ProductInstanceData> getProductInstance(LoginToken loginToken, FilterData filterData, PagingData pagingData)
             throws InvalidTokenException, AccessDeniedException, TechnicalException;
