@@ -30,7 +30,7 @@ public interface WarehouseService {
     void updateProduct(LoginToken loginToken,ProductData productData)
             throws ValidationFailedException, InvalidTokenException, AccessDeniedException, TechnicalException, ProductNotFoundException, CategoryNotFoundException;
 
-    List<ProductData> getProducts(LoginToken loginToken, FilterData filterData, PagingData pagingData)
+    List<ProductData> getProducts(LoginToken loginToken, ProductFilterData productFilterData, PagingData pagingData)
             throws InvalidTokenException, AccessDeniedException, TechnicalException;
 
 
@@ -45,6 +45,6 @@ public interface WarehouseService {
     void updateProductInstance(LoginToken loginToken,ProductInstanceData productInstanceData)
             throws ValidationFailedException, InvalidTokenException, AccessDeniedException, TechnicalException, ProductInstanceNotFoundException, ProductNotFoundException;
 
-    List<ProductInstanceData> getProductInstance(LoginToken loginToken, FilterData filterData, PagingData pagingData)
+    List<ProductInstanceData> getProductInstance(LoginToken loginToken, ProductInstanceFilterData productInstanceDataFilterData, PagingData pagingData)
             throws InvalidTokenException, AccessDeniedException, TechnicalException;
 }

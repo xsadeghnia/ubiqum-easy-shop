@@ -117,10 +117,7 @@ public class WarehouseServiceImpl implements WarehouseService {
         List<CategoryData> categoryDataArrayList = new ArrayList<>();
         List<Category> categories = categoryRepository.findByNameContains(categoryFilterData.getName());
         for (Category cat : categories){
-            CategoryData categoryData = new CategoryData();
-            categoryData.setName(cat.getName());
-            categoryData.setParentName(cat.getParent().getName());
-            categoryDataArrayList.add(categoryData);
+            categoryDataArrayList.add(getCategoryData(cat));
         }
         return categoryDataArrayList;
     }
@@ -197,9 +194,17 @@ public class WarehouseServiceImpl implements WarehouseService {
     }
 
     @Override
-    public List<ProductData> getProducts(LoginToken loginToken, FilterData filterData, PagingData pagingData)
+    public List<ProductData> getProducts(LoginToken loginToken, ProductFilterData productFilterData , PagingData pagingData)
             throws InvalidTokenException, AccessDeniedException, TechnicalException {
-        return null;
+
+        checkAdmin(loginToken);
+
+        List<ProductData> productDataList = new ArrayList<>();
+        List<Product> products = productRepository.findByNameContains(productFilterData.getName());
+        for (Product prod : products){
+            productDataList.add(getProductData(prod));
+        }
+        return productDataList;
     }
 
     @Override
@@ -270,10 +275,46 @@ public class WarehouseServiceImpl implements WarehouseService {
     }
 
     @Override
-    public List<ProductInstanceData> getProductInstance(LoginToken loginToken, FilterData filterData, PagingData pagingData)
+    public List<ProductInstanceData> getProductInstance(LoginToken loginToken, ProductInstanceFilterData productInstanceFilterData, PagingData pagingData)
             throws InvalidTokenException, AccessDeniedException, TechnicalException {
+
         checkAdmin(loginToken);
 
-        return null;
+        List<ProductInstanceData> productInstanceDataList = new ArrayList<>();
+        List<ProductInstance> productInstances = productInstanceRepository.findByNameContains(productInstanceFilterData.getName());
+        for (ProductInstance prodIns : productInstances){
+            productInstanceDataList.add(getProductInstanceData(prodIns));
+        }
+
+        return productInstanceDataList;
     }
+
+    private CategoryData getCategoryData(Category category){
+
+        CategoryData categoryData = new CategoryData();
+        categoryData.setName(category.getName());
+        categoryData.setParentName(category.getParent().getName());
+        return categoryData;
+    }
+
+     private ProductData getProductData(Product product){
+
+         ProductData productData = new ProductData();
+         productData.setName(product.getName());
+         productData.setPrice(product.getPrice());
+         productData.setDescription(product.getDescription());
+         productData.setRate(product.getRate());
+         productData.setCategoryData(getCategoryData(product.getCategory()));
+         return productData;
+     }
+
+     private ProductInstanceData getProductInstanceData(ProductInstance productInstance){
+
+        ProductInstanceData productInstanceData = new ProductInstanceData();
+        productInstanceData.setEnterDate(productInstance.getEnterDate());
+        productInstanceData.setPurchaseDate(productInstance.getPurchaseDate());
+        productInstanceData.setExpireDate(productInstance.getExpireDate());
+        productInstanceData.setProductData(getProductData(productInstance.getProduct()));
+        return  productInstanceData;
+     }
 }
