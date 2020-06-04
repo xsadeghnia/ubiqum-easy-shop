@@ -281,7 +281,7 @@ public class WarehouseServiceImpl implements WarehouseService {
         checkAdmin(loginToken);
 
         List<ProductInstanceData> productInstanceDataList = new ArrayList<>();
-        List<ProductInstance> productInstances = productInstanceRepository.findByNameContains(productInstanceFilterData.getName());
+        List<ProductInstance> productInstances = productInstanceRepository.findByProductNameContains(productInstanceFilterData.getName());
         for (ProductInstance prodIns : productInstances){
             productInstanceDataList.add(getProductInstanceData(prodIns));
         }
